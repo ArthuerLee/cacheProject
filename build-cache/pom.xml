@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hualife.foundation.cache.builder</groupId>
+  <artifactId>com.hualife.foundation.cache.builder</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+
+  <name>build-cache</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <modules>
+		<module>../com.hualife.foundation.component.cache</module>
+		<module>../com.hualife.foundation.component.cache.guava</module>
+		<module>../com.hualife.foundation.component.cache.redis</module>
+	</modules>
+	
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+	<distributionManagement>
+		<repository>
+			<id>primeton-release-p2-repository</id>
+			<name>primeton-release-p2-repository</name>
+			<url>http://10.5.14.27:8081/nexus/content/repositories/hualife-maven-repository/</url>
+		</repository>
+	</distributionManagement>
+</project>

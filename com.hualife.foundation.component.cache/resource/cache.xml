@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<caches appName="应用名称" xmlns="http://www.hualife.com/foundation/component/cache" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hualife.com/foundation/component/cache cache.xsd ">
+  <!-- cache 节点可以有多个 
+  	   cache provider的引用，每一类缓存都会有一个相应的Provider。默认提供两种：本地缓存 Guava；远程缓存 Redis（redis分集群CacheProvider、非集群CacheProvider，参考user-config.xml配置）
+  	        序列化类型：xml/json      
+  	        是否支持事务：未实现
+  	        是否统计缓存信息：未实现
+   -->
+  <cache name="缓存名称"  provider="CacheProvider名称" restartWithClearData="false" serializeType="xml" statisticsEnabled="false" transactionEnabled="false">
+    <cacheListeners>
+      <!-- 缓存监听器：
+      	类型（listenerType）  - 实现接口（impl）
+      	CREATED - com.hualife.foundation.component.cache.event.CacheEntryCreatedListener<K, V>
+    	REMOVED - com.hualife.foundation.component.cache.event.CacheEntryRemovedListener<K, V>
+    	UPDATED - com.hualife.foundation.component.cache.event.CacheEntryUpdatedListener<K, V>
+    	READ - com.hualife.foundation.component.cache.event.CacheEntryReadListener<K, V>
+    	EXPIRY - com.hualife.foundation.component.cache.event.CacheEntryExpiredListener<K, V>
+    	是否同步调用（syn）
+    	-->
+      <cacheListener impl="" listenerType="" syn="true"/>
+    </cacheListeners>
+    <!-- 缓存数据失效策略：
+		失效时间类型：
+			periodsOfTime - 过某个时间段后失效
+			pointInTime   - 到某个时间点后失效
+    	失效类型：
+        	MODIFIED - 以最近更改（包括创建）时间点来算失效时间 
+       		ACCESSED - 以最近访问时间点来算失效时间
+                     失效时间（expiryTime），单位为秒：
+            0：不失效
+     -->
+    <expiry expiryTime="0" expiryTimeType="periodsOfTime"  expiryType="MODIFIED"/>
+    <!-- 负责缓存刷新，与cacheWriter节点互斥：
+    	继承抽象类（impl）：com.hualife.foundation.component.cache.AbstractCacheLoader<K, V>
+    	扩展属性（extProperties）：在实现CacheLoader接口的过程中，可能会用到一些配置信息，这时可以在这里定义
+     	刷新策略（刷新策略之间的配置只能选择一种）：
+     		1. 异步刷新（asyn），需要指定刷新周期（单位为秒）
+     			Map<K, V> loadAll();
+     			Map<K, V> preLoad();//预加载
+     		2. 数据源变更通知（notify：true;false），当数据源有变更时调用通知接口com.hualife.foundation.component.cache.task.DataSourceChangedNotifier.notify(ChangeMessage<K, V>)
+     -->
+    <cacheLoader impl="">
+      <extProperties>
+        <property key="" value=""/>
+      </extProperties>
+      <asyn period=""/>
+      <notify>false</notify>
+    </cacheLoader>
+    <!-- 负责缓存数据持久化，与cacheLoader节点互斥：
+    	继承抽象类（impl）：com.hualife.foundation.component.cache.AbstractCacheWriter<K, V>
+    	扩展属性（extProperties）：在实现CacheWriter接口的过程中，可能会用到一些配置信息，这时可以在这里定义
+    	持久化策略（持久化策略之间的配置只能选择一种）：
+    		1. 异步持久化（asyn）：有两种选择，建议都配置（1）刷新周期（period），单位为秒  （2）批量值（bufferSize），当发生几次变更后进行异步持久化；
+    			调用接口：
+    				void write(Cache.Entry<K, V> entry) throws CacheException;
+    				void delete(Object key) throws CacheException;
+    				void update(Cache.Entry<K, V> entry) throws CacheException;
+    		2. 同步持久化（syn）：当缓存数据发生变更时，同步调用CacheWriter的write方法，进行持久化
+    			调用接口：同上
+     -->
+    <cacheWriter impl="">
+    	<extProperties></extProperties>
+    	<asyn period="" bufferSize=""/>
+    	<syn>false</syn>
+    </cacheWriter>
+  </cache>
+</caches>

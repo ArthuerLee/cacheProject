@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<caches appName="test" xmlns="http://www.hualife.com/foundation/component/cache" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hualife.com/foundation/component/cache cache.xsd ">
+  <cache name="test" serializeType="json" provider="Redis1">
+    <cacheListeners>
+      <cacheListener impl="" listenerType="create" syn="true"/>
+    </cacheListeners>
+    <expiry expiryTime="0" expiryType="ACCESSED"/>
+    <cacheLoader impl="">
+      <asyn bufferSize="0" period=""/>
+    </cacheLoader>
+  </cache>
+  <cache name="test2" provider="Redis2">
+    <cacheListeners>
+      <cacheListener impl="" listenerType="create" syn="true"/>
+    </cacheListeners>
+    <expiry expiryTime="0" expiryType="ACCESSED"/>
+    <cacheLoader impl="">
+      <asyn bufferSize="0" period=""/>
+    </cacheLoader>
+  </cache>
+</caches>
+	

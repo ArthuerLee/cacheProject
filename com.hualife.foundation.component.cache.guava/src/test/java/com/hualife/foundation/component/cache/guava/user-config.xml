@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application>
+	<module name="CacheProvider">
+		<group name="Guava">
+			<configValue key="Clazz">com.hualife.foundation.component.cache.guava.GuavaCacheProvider</configValue>
+		</group>
+	</module>
+</application>

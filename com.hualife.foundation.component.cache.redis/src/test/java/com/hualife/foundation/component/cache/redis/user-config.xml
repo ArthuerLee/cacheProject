@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application>
+	<module name="CacheProvider">
+		<group name="Redis1">
+			<configValue key="Clazz">com.hualife.foundation.component.cache.redis.single.RedisSingleCacheProvider</configValue>
+			<configValue key="CacheHost">Host1</configValue>	
+		</group>
+		<group name="Redis2">
+			<configValue key="Clazz">com.hualife.foundation.component.cache.redis.cluster.RedisClusterCacheProvider</configValue>
+			<configValue key="CacheCluster">Cluster1</configValue>
+		</group>
+	</module>
+	<module name="CacheHost">
+		<group name="Host1">
+			<configValue key="Address">10.0.18.45:8000</configValue>
+            <configValue key="Password">redis</configValue>
+            <configValue key="TimeOut">10</configValue>
+            <configValue key="ConnectionPool">Pool1</configValue>
+		</group>
+	</module>
+	<module name="CacheCluster">
+	    <group name="Cluster1">	
+	    	<!-- 10.139.96.51:6379;10.139.96.51:9092;10.139.98.35:6379;10.139.98.35:9092;10.139.100.88:6379;10.139.100.88:9092 -->
+	    	<!-- 10.139.99.187:6379 -->
+			<configValue key="Address">10.0.18.45:8000:redis;10.0.18.45:8007:redis</configValue>
+	  		<configValue key="TimeOut">300</configValue>
+	  		<configValue key="MaxRedirections">6</configValue>
+	  		<configValue key="ConnectionPool">Pool1</configValue>
+		</group>
+	</module>
+	<module name="CacheConnectionPool">
+		<group name="Pool1">
+			<!-- 控制一个pool可分配多少个jedis实例，如果赋值为-1，则表示不限制 -->
+			<configValue key="MaxActive">50</configValue>
+			<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
+			<configValue key="MaxIdle">5</configValue>
+			<!-- 表示当borrow(引入)一个jedis实例时，最大的等待时间 -->
+			<configValue key="MaxWait">10</configValue>
+			<!-- 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的 -->
+			<configValue key="TestOnBorrow">true</configValue>
+		</group>
+	</module>
+</application>

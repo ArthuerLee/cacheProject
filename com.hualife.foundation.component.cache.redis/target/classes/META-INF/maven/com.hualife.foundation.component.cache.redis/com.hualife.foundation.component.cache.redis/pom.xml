@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hualife.foundation.component.cache.redis</groupId>
+  <artifactId>com.hualife.foundation.component.cache.redis</artifactId>
+  <packaging>jar</packaging>
+  <parent>
+	 <groupId>com.hualife.foundation.cache.builder</groupId>
+  <artifactId>com.hualife.foundation.cache.builder</artifactId>
+  <version>1.0.0</version>
+  </parent>
+  <name>com.hualife.foundation.component.cache.redis</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+		<groupId>com.hualife.foundation.component.cache</groupId>
+		<artifactId>com.hualife.foundation.component.cache</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>2.8.0</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-pool</groupId>
+		<artifactId>commons-pool</artifactId>
+		<version>1.5.6</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>2.7.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-mapper-asl</artifactId>
+		<version>1.9.12</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.primeton.ptp.server</groupId>
+	  <artifactId>ptp-server-data</artifactId>
+	  <version>5.1.0.0</version>
+	</dependency>
+  </dependencies>
+</project>

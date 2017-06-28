@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.hualife.com/foundation/component/cache"
+	targetNamespace="http://www.hualife.com/foundation/component/cache"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:element name="caches">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cache" maxOccurs="unbounded"></xs:element>
+			</xs:sequence>
+			<xs:attribute name="appName" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cache">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cacheListeners" minOccurs="0"></xs:element>
+				<xs:element ref="expiry" minOccurs="0" />
+				<xs:choice minOccurs="0">
+					<xs:element ref="cacheLoader"></xs:element>
+					<xs:element ref="cacheWriter"></xs:element>
+				</xs:choice>
+				<!-- 
+				<xs:element ref="share" minOccurs="0" />
+				 -->
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="provider" type="xs:string" use="required" />
+			<xs:attribute name="serializeType" type="serialize-type" use="optional"/>
+			<xs:attribute name="restartWithClearData" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="transactionEnabled" type="xs:boolean"
+				use="optional" default="false"/>
+			<xs:attribute name="statisticsEnabled" type="xs:boolean"
+				use="optional" default="false"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="expiry">
+		<xs:complexType>
+			<xs:attribute name="expiryTime" type="xs:string" use="required" />
+			<xs:attribute name="expiryTimeType" type="expiry-time-type" use="required" />
+			<xs:attribute name="expiryType" type="expiry-type" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="expiry-time-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="periodsOfTime"></xs:enumeration>
+			<xs:enumeration value="pointInTime"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>	
+	
+	<xs:element name="cacheListeners">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cacheListener" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:simpleType name="listener-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CREATED"></xs:enumeration>
+			<xs:enumeration value="EXPIRY"></xs:enumeration>
+			<xs:enumeration value="READ"></xs:enumeration>
+			<xs:enumeration value="REMOVED"></xs:enumeration>
+			<xs:enumeration value="UPDATED"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="serialize-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="xml"></xs:enumeration>
+			<xs:enumeration value="json"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="expiry-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MODIFIED"></xs:enumeration>
+			<xs:enumeration value="ACCESSED"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="cacheListener">
+		<xs:complexType>
+			<xs:attribute name="listenerType" type="listener-type" use="required" />
+			<xs:attribute name="impl" type="xs:string" use="required" />
+			<xs:attribute name="syn" type="xs:boolean" default="true" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="extProperties">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="property"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:attribute name="key" type="xs:string" use="required" />
+			<xs:attribute name="value" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="asyn">
+		<xs:complexType>
+			<xs:attribute name="period" use="required" type="xs:int"/>
+			<xs:attribute name="bufferSize" type="xs:int" default="0" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="syn" type="xs:boolean"/>
+	<xs:element name="notify" type="xs:boolean"/>
+	<xs:element name="cacheLoader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="extProperties" minOccurs="0" />
+				<xs:choice>
+					<xs:element ref="asyn" />
+					<xs:element ref="notify" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="impl" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="cacheWriter">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="extProperties">
+				</xs:element>
+				<xs:choice>
+					<xs:element ref="asyn">
+					</xs:element>
+					<xs:element ref="syn" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="impl" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<!-- 
+	<xs:element name="share">
+		<xs:complexType>
+			<xs:attribute name="scope" type="xs:string" use="required" />
+			<xs:attribute name="operation" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+ 	-->
+</xs:schema>

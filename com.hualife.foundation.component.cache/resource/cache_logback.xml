@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<configuration debug="false">
+    
+<!--       <appender name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>D:/logs/monitor.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender> -->
+		 <appender name="CONFIG_FILE"   class="ch.qos.logback.core.rolling.RollingFileAppender">  
+		    <file>/app/apps/cacheMonitor/8991/monitor_config.log</file>  
+		    <!-- <file>D:/logs/monitor_config.log</file>  -->
+		    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">  
+		        <fileNamePattern>/app/apps/cacheMonitor/8991/monitor_config.log.%i</fileNamePattern> 
+		        <!-- <fileNamePattern>D:/logs/monitor_config.log.%i</fileNamePattern>   -->
+		        <minIndex>1</minIndex>  
+		        <maxIndex>20</maxIndex>  
+		    </rollingPolicy>  
+		  
+		    <triggeringPolicy  
+		        class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
+		        <maxFileSize>1GB</maxFileSize>  
+		    </triggeringPolicy>  
+		    <encoder>  
+		        <pattern>%date%msg%n</pattern>  
+		    </encoder>  
+		</appender> 
+		<appender name="STATISTICS_FILE"  
+		    class="ch.qos.logback.core.rolling.RollingFileAppender">  
+		    <file>/app/apps/cacheMonitor/8991/monitor_statistics.log</file>  
+		    <!-- <file>D:/logs/monitor_statistics.log</file>  --> 
+		    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">  
+		        <fileNamePattern>/app/apps/cacheMonitor/8991/monitor_statistics.log.%i</fileNamePattern>
+		        <!-- <fileNamePattern>D:/logs/monitor_statistics.log.%i</fileNamePattern>  --> 
+		        <minIndex>1</minIndex>  
+		        <maxIndex>20</maxIndex>  
+		    </rollingPolicy>  
+		  
+		    <triggeringPolicy  
+		        class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
+		        <maxFileSize>1GB</maxFileSize>  
+		    </triggeringPolicy>  
+		    <encoder>  
+		        <pattern>%date%msg%n</pattern>  
+		    </encoder>  
+		</appender> 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="monitor1" additivity="false" level="info">
+        <appender-ref ref="CONFIG_FILE"/>  
+     </logger>  
+    <logger name="monitor2" additivity="false" level="info">
+       <appender-ref ref="STATISTICS_FILE"/>  
+    </logger>  
+<!--     <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root> -->
+</configuration>
